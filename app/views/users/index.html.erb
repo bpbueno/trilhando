@@ -1,0 +1,41 @@
+<% content_for :title, "Users" %>
+
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="sm:flex sm:items-center sm:justify-between mb-8">
+    <h1 class="text-2xl font-bold text-gray-900">Users</h1>
+    <%= link_to 'New user', new_user_path, class: "btn-primary" %>
+  </div>
+
+  <div class="card">
+    <div class="overflow-x-auto">
+      <table class="table-container">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="table-header">Name</th>
+            <th class="table-header">Gender</th>
+            <th class="table-header">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% @users.each do |user| %>
+            <tr>
+              <td class="table-cell"><%= user.name %></td>
+              <td class="table-cell"><%= user.gender %></td>
+              <td class="table-cell">
+                <div class="flex space-x-3">
+                  <%= link_to 'View', user, class: "text-blue-600 hover:text-blue-900" %>
+                  <%= link_to 'Edit', edit_user_path(user), class: "text-blue-600 hover:text-blue-900" %>
+                  <%= button_to 'Delete', user, method: :delete, class: "text-red-600 hover:text-red-900", form: { data: { turbo_confirm: 'Are you sure?' } } %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

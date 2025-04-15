@@ -1,0 +1,45 @@
+<% content_for :title, "Trails" %>
+
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="sm:flex sm:items-center sm:justify-between mb-8">
+    <h1 class="text-2xl font-bold text-gray-900">Trails</h1>
+    <%= link_to 'New trail', new_trail_path, class: "btn-primary" %>
+  </div>
+
+  <div class="card">
+    <div class="overflow-x-auto">
+      <table class="table-container">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="table-header">Name</th>
+            <th class="table-header">Extension</th>
+            <th class="table-header">Elevation Gain</th>
+            <th class="table-header">City</th>
+            <th class="table-header">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% @trails.each do |trail| %>
+            <tr>
+              <td class="table-cell"><%= trail.name %></td>
+              <td class="table-cell"><%= number_with_delimiter(trail.extension_in_meters) %> m</td>
+              <td class="table-cell"><%= number_with_delimiter(trail.elevation_gain_in_meters) %> m</td>
+              <td class="table-cell"><%= trail.city %></td>
+              <td class="table-cell">
+                <div class="flex space-x-3">
+                  <%= link_to 'View', trail, class: "text-blue-600 hover:text-blue-900" %>
+                  <%= link_to 'Edit', edit_trail_path(trail), class: "text-blue-600 hover:text-blue-900" %>
+                  <%= button_to 'Delete', trail, method: :delete, class: "text-red-600 hover:text-red-900", form: { data: { turbo_confirm: 'Are you sure?' } } %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

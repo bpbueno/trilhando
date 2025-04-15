@@ -1,0 +1,33 @@
+<%= form_with(model: user, class: "contents") do |form| %>
+  <% if user.errors.any? %>
+    <div class="bg-red-50 text-red-500 px-4 py-3 rounded-md mb-6">
+      <h2 class="font-medium"><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul class="list-disc ml-5 mt-2">
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card space-y-6">
+    <div>
+      <%= form.label :name, class: "form-label" %>
+      <%= form.text_field :name, class: "form-input" %>
+    </div>
+
+    <div>
+      <%= form.label :gender, class: "form-label" %>
+      <%= form.select :gender,
+                     ['Male', 'Female'],
+                     { prompt: 'Select gender' },
+                     class: "form-input" %>
+    </div>
+
+    <div class="flex justify-end space-x-3">
+      <%= form.submit class: "btn-primary" %>
+      <%= link_to 'Back', users_path, class: "btn-secondary" %>
+    </div>
+  </div>
+<% end %>
